@@ -1,0 +1,12 @@
+<html>
+  <head>
+    <link type="text/css" rel="stylesheet" href="/stylesheets/main.css" />
+  </head>
+  <body>
+    {% for user in users %}
+        <b>{{ user.nickname }}</br></b>
+    {% endfor %}
+    <a href="{{ url }}">{{ url_linktext }}</a>
+
+  </body>
+</html>
