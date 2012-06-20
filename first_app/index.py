@@ -32,6 +32,10 @@ class MainPage(webapp.RequestHandler):
 class Teste(webapp.RequestHandler):
     def get(self):
         users_db = db.GqlQuery("SELECT * FROM User")
+        # poderia ser feito também
+        # users_db = User.gql() 
+        # que já retorna todas as entidades, podendo ter como parâmetro filtros e order by
+        # users_db = User.all()
         for user in users_db:
             self.response.out.write(user.nickname())
     def post(self):

@@ -1,5 +1,5 @@
 *.py[co]
-
+*/app.yaml
 # Packages
 *.egg
 *.egg-info
