@@ -58,4 +58,6 @@ https://developers.google.com/appengine/docs/python/runtime
 * datastore consulta sobre uma propriedade lista passa apenas se algum dos valores da lista passarem por todos condicionais
 * datastore atributo referencia : db.ReferenceProperty(Modelo) : guarda chaves para Modelo(obs: para auto referencia, usar SelfReferenceProperty)
     * usar um atributo com referencia a modelo automaticamente carrega a entidade associada a chave!!!!!!!!! mas que maravilha!
+    * usar um atributo com referencia automaticamente adiciona ao modelo referenciado um método de nome <modelo que referencia>_set que retorna todas entidades que referencia a entidade no qual é chamado!!!!!!!!!!!!!!!!! é muita maravilha!
+        * melhor adicionar ao property de referencia a propriedade collection_name="nome_do_metodo_que_retornará_os_que_referenciam"
  
