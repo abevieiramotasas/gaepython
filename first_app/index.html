@@ -3,13 +3,14 @@
     <link type="text/css" rel="stylesheet" href="/stylesheets/main.css" />
   </head>
   <body>
+    {{ user.nickname}}
     {% if cadastrar %}
       <form action="{{cadastrar}}" method="post">
         <input type="hidden" value="{{nickname}}" name="nickname"/>
         <input type="submit" value="Cadastrar" />
       </form>
     {% endif %}
-    <a href="{{ url }}">{{ url_linktext }}</a><>
+    <a href="{{ url }}">{{ url_linktext }}</a></br>
     <a href="/env"> Variáveis do ambiente</a>
   </body>
 </html>

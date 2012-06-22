@@ -16,7 +16,7 @@ class CadastrarHandler(webapp.RequestHandler):
         # se está logado
         cadastrar = None
         nickname = None
-        user = users.get_current_user()
+        user = users.get_current_user()  
         if user:
             # crio link de logout
             url = users.create_logout_url(self.request.uri)
@@ -43,6 +43,7 @@ class CadastrarHandler(webapp.RequestHandler):
 # recupera todos os usuários
 class TodosUsersHandler(webapp.RequestHandler):
     def get(self):
+        # utilizando a interface GqlQuery
         users_db = db.GqlQuery("SELECT * FROM User")
         # poderia ser feito também
         # users_db = User.gql() 
@@ -55,18 +56,14 @@ class TodosUsersHandler(webapp.RequestHandler):
         self.response.out.write(template.render(path, template_values))
     # novo user
     def post(self):
-        logging.info('>>>>>>>>>>>POST<<<<<<<<<<<<<<<<<')
         user = User()
         user.nickname = self.request.get('nickname')
-        logging.info('Nickname recebido : '+user.nickname)
         # adiciona ao datastore
         user.put()
-        users_db = db.GqlQuery("SELECT * FROM User")
+        # utilizando a interface Query
+        users_db = User.all()
         template_values = {
             'users' : users_db
         }
-        #for user in users_db:
-        #    logging.info(user.nickname)
         path = os.path.join(os.path.dirname(__file__), 'todosuser.html')
         self.response.out.write(template.render(path, template_values))
-        logging.info('>>>>>>>>>>>POST<<<<<<<<<<<<<<<<<')

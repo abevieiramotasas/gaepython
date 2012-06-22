@@ -3,9 +3,21 @@
     <link type="text/css" rel="stylesheet" href="/stylesheets/main.css" />
   </head>
   <body>
+    {% if users %}
+      <table border="2">
+        <tr>
+          <th> nickname</th>
+          <th> key</th>
+        <tr>
+    {% endif %}
     {% for user in users %}
-        <b>{{ user.nickname }}</br></b>
+        <tr>
+          <td>{{ user.nickname }}</td><td>{{ user.key }}</td>
+        </tr>
     {% endfor %}
+    {% if users %}
+      </table>
+    {% endif %}
     <a href="/">Voltar</a>
   </body>
 </html>

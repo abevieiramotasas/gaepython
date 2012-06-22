@@ -19,8 +19,7 @@ from google.appengine.ext.webapp import template
 # ! ver template, porque deu um trabalhim danado pra usar dicionário
 class EnvironmentHandler(webapp.RequestHandler):
     def get(self):
-        # retirado da documentação
-        
+        # retirado da documentação        
         environment_map = {}
         for name in os.environ.keys():
             environment_map[name] = os.environ[name]
