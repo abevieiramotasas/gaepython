@@ -1,0 +1,11 @@
+<html>
+  <head>
+    <link type="text/css" rel="stylesheet" href="/stylesheets/main.css" />
+  </head>
+  <body>
+    {% for chave in environment_map.items %}
+        <b>{{ chave.0 }}</b> : {{ chave.1 }}</br>
+    {% endfor %}
+    <a href="/">Voltar</a>
+  </body>
+</html>
