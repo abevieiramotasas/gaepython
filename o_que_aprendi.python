@@ -1,0 +1,61 @@
+https://developers.google.com/appengine/docs/python/overview
+Serviços:
+    datastore
+    memcache
+    urllib
+    mail
+    image
+    google accounts
+    cron jobs
+    tool for bulk upload
+
+https://developers.google.com/appengine/docs/python/runtime
+* 30s para responder
+    DeadlineExceededError lançado
+    default 500
+    1s para gerar resposta, caso a app capture a exceção
+* app não tem acesso a sistema de arquivos
+    * usar sistema de armazenamento
+* app não pode usar socket diretamente
+* python v 2.5.2
+* módulos importados são cacheados por servidor
+    * import implica em inicialização do módulo apenas na primeira vez em que é realizado por servidor
+    * scripts que definam main()# sem argumentos # são automaticamente cacheados
+    * regex compilados são cacheados
+    * objs GqlQuery. dica: criar GqlQuery parametrizados
+* log
+    * app engine grava
+        * saidas
+        * erros(saida de erros)
+        * baixar log : appcfg.py request_logs
+        * pode usar logging
+* variáveis de ambiente( os.environ )
+    * APPLICATION_ID
+    * CURRENT_VERSION_ID
+    * AUTH_DOMAIN
+* datastore deselvolvido para escalonar(incremento de processamento não cresce com incremento de entidades)
+* datastore retorna ou entidade toda ou key da entidade
+* datastore entidade
+    * possui uma chave
+    * "Uma chave tem vários componentes: um caminho, uma parte opcional que especifica outra entidade como o pai dessa entidade, o tipo da entidade e um nome atribuído à entidade pelo aplicativo ou um ID numérico atribuído pelo armazenamento de dados." fonte: documentação
+        * nome da chave pode ser delegado ao sistema ou definido pela app, passando key_name="meu nome" na instanciação de um objeto de entidade
+    * classes para modelagem com python(por datastore não impor restrições de modelo) : https://developers.google.com/appengine/docs/python/datastore/datamodeling
+* datastore desenvolvimento limpar dev_appserver.py --clear_datastore /project
+* datastore operações em lote são feitas enviando arrays de entidades pras operações(put, delete, get)
+    * não garante que todas operações tenham sucesso(usar transação caso necessário)
+* datastore para retornar apenas as chaves, passar o parametro keys_only=True
+* datastore uma consulta não pode usar dois filtros de DESIGUALDADE em duas propriedades diferentes
+* datastore offset e limit passados ao método .fetch das queries (ex: q.fetch(offset=5, limit=40))
+* datastore adicionar propriedade não indexada : Entity.setUnindexedProperty
+* datastore eliminar índices : appcfg.py vacuum_indexes
+* interessante !!!!!!!!!!!!!!!
+    * Um uso interessante dos cursores é o monitoramento das entidades em busca de alterações não vistas. Se o aplicativo definir uma propriedade de carimbo de data com a data e a hora atuais sempre que uma entidade mudar, o aplicativo poderá usar uma consulta classificada pela propriedade de carimbo de data, crescente, com um cursor de armazenamento de dados para verificar se as entidades são movidas para o fim da lista de resultados. Se o carimbo de data de uma entidade for atualizado, a consulta com o cursor retornará a entidade atualizada. Se nenhuma entidade for atualizada desde a última execução da consulta, nenhum resultado será retornado e o cursor não se moverá.
+    * depois de consultar com um Query usar .cursor() para obter o cursor(string base64)
+    * passar para query com .with_cursor(start_cursor = start, end_cursor = end)
+    * não podem ser utilizados com consultas com != e IN
+    * para utilizar um cursor de uma consulta, a nova consulta deve ser igual   
+* datastore propriedades required=True devem ser setadas na instanciação da entidade
+* datastore consulta sobre uma propriedade lista passa apenas se algum dos valores da lista passarem por todos condicionais
+* datastore atributo referencia : db.ReferenceProperty(Modelo) : guarda chaves para Modelo(obs: para auto referencia, usar SelfReferenceProperty)
+    * usar um atributo com referencia a modelo automaticamente carrega a entidade associada a chave!!!!!!!!! mas que maravilha!
+ 
