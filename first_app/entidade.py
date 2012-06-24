@@ -11,6 +11,21 @@ import logging
 class User(db.Model):
     nickname = db.StringProperty()
 
+# definição da entidade Pessoa com db.Expando
+class Pessoa(db.Expando):
+    pass
+
+class ExpandoHandler(webapp.RequestHandler):
+    def get(self):
+        p = Pessoa()
+        # propriedade da instancia, dinamica
+        p.nome = "Abelardo Vieira Mota"
+        p.put()
+        q = Pessoa.all()
+        for pessoa in q:
+            self.response.out.write(u"Propriedades dinâmicas : "+ str(pessoa.dynamic_properties())+"</br>")
+            self.response.out.write(pessoa.nome)
+
 class CadastrarHandler(webapp.RequestHandler):
     def get(self):
         # se está logado

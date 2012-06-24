@@ -8,11 +8,14 @@
         <tr>
           <th> nickname</th>
           <th> key</th>
+          <th> XML </th>
         <tr>
     {% endif %}
     {% for user in users %}
         <tr>
-          <td>{{ user.nickname }}</td><td>{{ user.key }}</td>
+          <td>{{ user.nickname }}</td>
+          <td>{{ user.key }}</td>
+          <td>{{ user.to_xml }}</td>
         </tr>
     {% endfor %}
     {% if users %}

@@ -2,6 +2,7 @@
 # modulos da app
 from entidade import CadastrarHandler
 from entidade import TodosUsersHandler
+from entidade import ExpandoHandler
 from entidade import User
 # modulos gerais
 from google.appengine.api import users
@@ -42,7 +43,8 @@ class EnvironmentHandler(webapp.RequestHandler):
 application = webapp.WSGIApplication([
     ('/', CadastrarHandler), 
     ('/user', TodosUsersHandler),
-    ('/env', EnvironmentHandler)
+    ('/env', EnvironmentHandler),
+    ('/expando', ExpandoHandler)
     ], debug=True)
 
 def main():
