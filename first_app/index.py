@@ -12,6 +12,8 @@ from google.appengine.ext.webapp.util import run_wsgi_app
 import logging
 import os
 from google.appengine.ext.webapp import template
+# stats
+from google.appengine.ext.db import stats
 
 
 
@@ -23,8 +25,15 @@ class EnvironmentHandler(webapp.RequestHandler):
         environment_map = {}
         for name in os.environ.keys():
             environment_map[name] = os.environ[name]
+
+        # estatísticas - não funcionou :(
+#        global_stat = stats.GlobalStat.all().get()
+#        total_bytes = global_stat.bytes
+#        total_count = global_stat.count
         template_values = {
             'environment_map' : environment_map
+#            'bytes' : total_bytes,
+#            'count' : total_counts
         }
         path = os.path.join(os.path.dirname(__file__), 'environment.html')
         self.response.out.write(template.render(path, template_values))

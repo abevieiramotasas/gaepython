@@ -60,4 +60,13 @@ https://developers.google.com/appengine/docs/python/runtime
     * usar um atributo com referencia a modelo automaticamente carrega a entidade associada a chave!!!!!!!!! mas que maravilha!
     * usar um atributo com referencia automaticamente adiciona ao modelo referenciado um método de nome <modelo que referencia>_set que retorna todas entidades que referencia a entidade no qual é chamado!!!!!!!!!!!!!!!!! é muita maravilha!
         * melhor adicionar ao property de referencia a propriedade collection_name="nome_do_metodo_que_retornará_os_que_referenciam"
+* datastore gql não possui operador OR(por quê?! como simular?! >>
+    operador IN realiza uma comparação com = usando OR em todos elementos da lista. por isso na documentação diz que da para simular um OR mais fraco)
+* datastore
+    * "Por exemplo, você pode colocar as postagens recentes no memcache com uma validade e, em seguida, exibir um combinado de postagens recentes do memcache e postagens recuperadas do armazenamento de dados." fonte : documentação
+* datastore
+    * tipos : https://developers.google.com/appengine/docs/python/datastore/typesandpropertyclasses
+        * classe category
+    *
+
  
