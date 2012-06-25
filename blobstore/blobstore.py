@@ -20,11 +20,13 @@ class BlobstoreHandler(webapp.RequestHandler):
    def get(self):
       user = users.get_current_user()
       template_values = {}
+      # se não está logado
       if not user:
          template_values['logado'] = False
          template_values['user_url_link'] = users.create_login_url(self.request.uri)
          template_values['user_url'] = 'Login'
       else:
+      # caso esteja logado
          template_values['logado'] = True
          template_values['user'] = user
          template_values['upload_url'] = blobstore.create_upload_url('/upload')    
@@ -36,26 +38,33 @@ class BlobstoreHandler(webapp.RequestHandler):
 class BlobUploadHandler(blobstore_handlers.BlobstoreUploadHandler):    
    def post(self):
       user = users.get_current_user()
+      # se não está logado, vai te logar rapaz
       if not user:
          self.redirect('/')
+      # caso não tenha feito upload, envia direto para tela de uploads
       if not self.get_uploads():
          self.redirect('/uploads')
       else:
+      # pega o arquivo uploadado
          uploaded = self.get_uploads()[0]
          upload = Upload()
          upload.user = user
          upload.blobkey = uploaded.key()
-         upload.filename = uploaded.filename
+      # persiste
          upload.put()
          self.redirect('/uploads')
 
 class BlobDownloadHandler(blobstore_handlers.BlobstoreDownloadHandler):
    def get(self, blobkey):
+   # como é passado como query param, a string vem toda escapada, bem feia
+   # mandando um urllib.unquote ela fica bonita
       blobkey = urllib.unquote(blobkey)
       if not blobstore.get(blobkey):   
          self.error(404)
       else:
+   # pego o nome do arquivo
          filename = blobstore.BlobInfo.get(blobkey).filename         
+   # envio
          self.send_blob(blobkey, save_as=filename)
 
 class UploadsHandler(webapp.RequestHandler):
