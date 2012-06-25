@@ -14,7 +14,6 @@ import urllib
 class Upload(db.Model):
    user = db.UserProperty()
    blobkey = blobstore.BlobReferenceProperty()
-   filename = db.StringProperty()
     
 
 class BlobstoreHandler(webapp.RequestHandler):
@@ -56,15 +55,13 @@ class BlobDownloadHandler(blobstore_handlers.BlobstoreDownloadHandler):
       if not blobstore.get(blobkey):   
          self.error(404)
       else:
-         upload = db.Query(Upload)
-         upload.filter("blobkey", blobkey)
-         filename = (upload.get()).filename
+         filename = blobstore.BlobInfo.get(blobkey).filename         
          self.send_blob(blobkey, save_as=filename)
 
 class UploadsHandler(webapp.RequestHandler):
    def get(self):
-      template_values = {}
-      template_values['uploads'] = Upload.all()
+      template_values = {}    
+      template_values['uploads'] = Upload.all()     
       path = os.path.join(os.path.dirname(__file__)+'/templates', 'uploads.html')
       self.response.out.write(template.render(path, template_values))
 

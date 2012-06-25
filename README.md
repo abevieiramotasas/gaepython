@@ -17,3 +17,4 @@ first_app:
 blobstore
 	upload 
 	download
+	BlobInfo

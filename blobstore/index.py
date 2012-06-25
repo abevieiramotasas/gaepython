@@ -13,7 +13,7 @@ application = webapp.WSGIApplication([
     ('/', BlobstoreHandler),
     ('/upload', BlobUploadHandler),
     ('/uploads', UploadsHandler),
-    ('/download/(.*)', BlobDownloadHandler)
+    ('/download/([^/]+)?', BlobDownloadHandler)
     ], debug=True)
 
 def main():

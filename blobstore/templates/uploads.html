@@ -6,13 +6,19 @@
       <table border="2">
         <tr>
           <th> user </th>
-          <th> blobkey </th>
+          <th> download </th>
+          <th> content-type </th>
+          <th> creation </th>
+          <th> size </th>
         <tr>
     {% endif %}
     {% for upload in uploads %}
         <tr>
           <td>{{ upload.user }}</td>
-          <td><a href="/download/{{ upload.blobkey.key }}">{{ upload.blobkey.key }}</td>
+          <td><a href="/download/{{ upload.blobkey.key }}">{{ upload.blobkey.filename }}</td>
+          <td>{{ upload.blobkey.content_type }}</td>
+          <td>{{ upload.blobkey.creation }}</td>
+          <td>{{ upload.blobkey.size }}</td>
         </tr>
     {% endfor %}
     {% if uploads %}
