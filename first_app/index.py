@@ -15,6 +15,9 @@ import os
 from google.appengine.ext.webapp import template
 # stats
 from google.appengine.ext.db import stats
+# blobstore
+from blobstore import BlobstoreHandler
+from blobstore import BlobUploadHandler
 
 
 
@@ -44,7 +47,9 @@ application = webapp.WSGIApplication([
     ('/', CadastrarHandler), 
     ('/user', TodosUsersHandler),
     ('/env', EnvironmentHandler),
-    ('/expando', ExpandoHandler)
+    ('/expando', ExpandoHandler),
+    ('/blobstore', BlobstoreHandler),
+    ('/blobstorehandler', BlobUploadHandler)
     ], debug=True)
 
 def main():

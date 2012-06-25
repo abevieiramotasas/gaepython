@@ -1,0 +1,16 @@
+<html>
+  <head>
+  </head>
+  <body>
+  {% if logado %}
+  Seja bem vindo {{ user.nickname }} !<br />
+  <form action="{{ upload_url }}" method="POST" enctype="multipart/form-data">
+  Arquivo:  <input type="file" name="file"><br> 
+            <input type="submit" name="submit" value="Submit"> 
+  </form>
+  {% else %}
+  Você deve estar logado!
+  {% endif %}
+  <a href="{{ user_url_link }}">{{ user_url }}</a>
+  </body>
+</html>

@@ -1,0 +1,23 @@
+<html>
+  <head>
+  </head>
+  <body>
+    {% if uploads %}
+      <table border="2">
+        <tr>
+          <th> user </th>
+          <th> blobkey </th>
+        <tr>
+    {% endif %}
+    {% for upload in uploads %}
+        <tr>
+          <td>{{ upload.user }}</td>
+          <td><a href="/download/{{ upload.blobkey.key }}">{{ upload.blobkey.key }}</td>
+        </tr>
+    {% endfor %}
+    {% if uploads %}
+      </table>
+    {% endif %}
+    <a href="/">Voltar</a>
+  </body>
+</html>
