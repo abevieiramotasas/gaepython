@@ -48,15 +48,12 @@ class TestandoImageHandler(webapp.RequestHandler):
     # pego o primeiro blob(considero que estou uploadando apenas images)
     blob_info = blobstore.BlobInfo.all().fetch(1, 0)[0]
     #blob = blobstore.get(blob_info.key())
-    self.response.out.write(images.get_serving_url(blob_info.key()))
-    return
     if blob_info:
-      img = images.Image(blob_info)
-      #img.resize(width=80, height=100)
-      #img.im_feeling_lucky()
-      #logging.info(img.width)
-      #thumbnail = img.execute_transforms(output_encoding=images.JPEG)
+      img = images.Image(blob_key = blob_info.key())
+      img.resize(width=80, height=100)
+      img.im_feeling_lucky()
+      thumbnail = img.execute_transforms(output_encoding=images.JPEG)
       self.response.headers['Content-Type'] = 'image/jpeg'
-      self.response.out.write(img)
+      self.response.out.write(thumbnail)
       return
     self.error(404)
